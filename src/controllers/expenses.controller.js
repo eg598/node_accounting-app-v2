@@ -45,7 +45,16 @@ const create = (req, res) => {
   const { userId, spentAt, title, amount, category, note } = req.body;
   const user = userServise.getById(userId);
 
-  if (!userId || !spentAt || !title || !amount || !category || !user) {
+  if (
+    !userId ||
+    !spentAt ||
+    !title ||
+    !amount ||
+    typeof amount !== 'number' ||
+    amount < 1 ||
+    !category ||
+    !user
+  ) {
     res.status(400).send();
 
     return;
@@ -70,6 +79,13 @@ const update = (req, res) => {
 
   if (!existingExpense) {
     return res.status(404).send();
+  }
+
+  if (
+    'amount' in req.body &&
+    (typeof req.body.amount !== 'number' || req.body.amount < 1)
+  ) {
+    return res.status(400).send();
   }
 
   const updatedExpense = expensesServise.update({

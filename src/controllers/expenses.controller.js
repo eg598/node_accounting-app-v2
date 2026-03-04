@@ -45,7 +45,7 @@ const create = (req, res) => {
   const { userId, spentAt, title, amount, category, note } = req.body;
   const user = userServise.getById(userId);
 
-  if (!userId || !spentAt || !title || !amount || !category || !note || !user) {
+  if (!userId || !spentAt || !title || !amount || !category || !user) {
     res.status(400).send();
 
     return;

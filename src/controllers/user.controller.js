@@ -43,6 +43,12 @@ const update = (req, res) => {
     return;
   }
 
+  if (!name) {
+    res.status(400).send();
+
+    return;
+  }
+
   if (typeof name !== 'string') {
     res.status(400).send();
 
